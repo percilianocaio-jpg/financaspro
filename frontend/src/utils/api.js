@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://financaspro-backend-s58e.onrender.com',
+  baseURL: 'https://financaspro-backend-s58e.onrender.com/api',
 });
 
 // Adiciona token em todas as requisições
