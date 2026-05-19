@@ -137,4 +137,13 @@ financaspro/
 - [ ] Exportar relatório PDF
 - [ ] Metas de economia
 - [ ] Deploy: frontend no Vercel, backend no Render, banco no MongoDB Atlas
+
+---
+
+## Autor
+
+**Caio Perciliano**
+
+🔗 GitHub:[(https://github.com/percilianocaio-jpg)]
+🔗 Email: percilianocaio@gmail.com
 # financaspro
