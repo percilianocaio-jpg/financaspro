@@ -76,7 +76,7 @@ router.post('/upload', protect, upload.single('document'), async (req, res) => {
     const fileBuffer = fs.readFileSync(filePath);
     const base64 = fileBuffer.toString('base64');
     const mimeType = req.file.mimetype;
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent([
       { inlineData: { mimeType, data: base64 } },
       PROMPT,
