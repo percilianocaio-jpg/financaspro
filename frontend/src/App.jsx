@@ -10,6 +10,7 @@ import Debts from './pages/Debts';
 import Insights from './pages/Insights';
 import Login from './pages/Login';
 import Import from './pages/Import';
+import Savings from './pages/Savings';
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
@@ -30,6 +31,7 @@ function AppLayout() {
             <Route path="/dividas" element={<Debts />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/importar" element={<Import />} />
+            <Route path="/caixinhas" element={<Savings />} />
           </Routes>
         </main>
       </div>

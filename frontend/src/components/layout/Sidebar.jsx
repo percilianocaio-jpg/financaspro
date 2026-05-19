@@ -9,6 +9,7 @@ const navItems = [
   { to: '/dividas', icon: '💳', label: 'Dívidas' },
   { to: '/insights', icon: '💡', label: 'Insights' },
   { to: '/importar', icon: '📂', label: 'Importar Extrato' },
+  { to: '/caixinhas', icon: '🏦', label: 'Caixinhas' },
 ];
 
 export default function Sidebar() {

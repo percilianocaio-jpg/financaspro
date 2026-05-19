@@ -10,7 +10,10 @@ if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: ['http://localhost:3000', 'https://financaspro-brown.vercel.app'], credentials: true }));
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://financaspro-brown.vercel.app'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
@@ -21,6 +24,7 @@ app.use('/api/future', require('./routes/future'));
 app.use('/api/debts', require('./routes/debts'));
 app.use('/api/summary', require('./routes/summary'));
 app.use('/api/import', require('./routes/import'));
+app.use('/api/savings', require('./routes/savings'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
