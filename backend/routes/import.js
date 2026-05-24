@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const Groq = require('groq-sdk');
 const Transaction = require('../models/Transaction');
 const { protect } = require('../middleware/auth');
 
@@ -17,7 +17,7 @@ const upload = multer({
   },
 });
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const PROMPT = `Você é um assistente especializado em leitura de extratos bancários e faturas brasileiros.
 Analise o documento fornecido e extraia TODAS as transações financeiras encontradas.
