@@ -19,8 +19,8 @@ export default function Import() {
 
   const handleFile = (f) => {
     if (!f) return;
-    const allowed = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
-    if (!allowed.includes(f.type)) { setError('Formato não suportado. Use PDF, JPG ou PNG.'); return; }
+    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowed.includes(f.type)) { setError('Formato não suportado. Use JPG ou PNG.'); return; }
     if (f.size > 20 * 1024 * 1024) { setError('Arquivo muito grande. Máximo 20MB.'); return; }
     setError(''); setFile(f);
   };
@@ -89,15 +89,15 @@ export default function Import() {
       <div className="page-header">
         <div>
           <h1 className="page-title">Importar Extrato</h1>
-          <p className="page-subtitle">Envie um PDF ou imagem — a IA lê e categoriza automaticamente</p>
+          <p className="page-subtitle">Envie um print ou imagem — a IA lê e categoriza automaticamente</p>
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
         {[
-          { icon: '📄', title: 'Extrato bancário', sub: 'PDF ou imagem do app' },
-          { icon: '💳', title: 'Fatura de cartão', sub: 'Qualquer operadora' },
-          { icon: '🖼️', title: 'Print de tela', sub: 'Screenshot do internet banking' },
+          { icon: '🖼️', title: 'Print de tela', sub: 'Screenshot do app do banco' },
+          { icon: '💳', title: 'Fatura de cartão', sub: 'Print da fatura' },
+          { icon: '📊', title: 'Extrato bancário', sub: 'Print ou foto do extrato' },
         ].map((item) => (
           <div key={item.title} className="metric-card" style={{ textAlign: 'center' }}>
             <div style={{ fontSize: 28, marginBottom: 8 }}>{item.icon}</div>
@@ -119,14 +119,14 @@ export default function Import() {
         onDrop={handleDrop}
         onClick={() => !file && inputRef.current.click()}
       >
-        <input ref={inputRef} type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" style={{ display: 'none' }} onChange={(e) => handleFile(e.target.files[0])} />
+        <input ref={inputRef} type="file" accept=".jpg,.jpeg,.png,.webp" style={{ display: 'none' }} onChange={(e) => handleFile(e.target.files[0])} />
 
         {file ? (
           <>
             <div style={{ fontSize: 40, marginBottom: 12 }}>✅</div>
             <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-green-dark)' }}>{file.name}</div>
             <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 4 }}>
-              {(file.size / 1024).toFixed(0)} KB · {file.type.includes('pdf') ? 'PDF' : 'Imagem'}
+              {(file.size / 1024).toFixed(0)} KB · Imagem
             </div>
             <button className="btn btn-secondary btn-sm" style={{ marginTop: 16 }} onClick={(e) => { e.stopPropagation(); setFile(null); }}>
               Trocar arquivo
@@ -137,7 +137,8 @@ export default function Import() {
             <div style={{ fontSize: 40, marginBottom: 12 }}>📂</div>
             <div style={{ fontWeight: 600, fontSize: 15 }}>Arraste o arquivo aqui</div>
             <div style={{ fontSize: 13, color: 'var(--color-text-muted)', marginTop: 4 }}>ou clique para selecionar</div>
-            <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 8 }}>PDF, JPG, PNG · Máximo 20MB</div>
+            <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginTop: 8 }}>JPG, PNG, WEBP · Máximo 20MB</div>
+            <div style={{ fontSize: 11, color: 'var(--color-amber)', marginTop: 4 }}>⚠️ PDF não suportado — tire um print do extrato</div>
           </>
         )}
       </div>
