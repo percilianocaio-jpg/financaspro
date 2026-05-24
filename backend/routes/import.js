@@ -10,10 +10,10 @@ const upload = multer({
   dest: 'uploads/',
   limits: { fileSize: 20 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
+    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
     allowed.includes(file.mimetype)
       ? cb(null, true)
-      : cb(new Error('Formato não suportado. Use PDF, JPG ou PNG.'));
+      : cb(new Error('Formato não suportado. Use JPG ou PNG.'));
   },
 });
 
@@ -76,12 +76,26 @@ router.post('/upload', protect, upload.single('document'), async (req, res) => {
     const fileBuffer = fs.readFileSync(filePath);
     const base64 = fileBuffer.toString('base64');
     const mimeType = req.file.mimetype;
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent([
-      { inlineData: { mimeType, data: base64 } },
-      PROMPT,
-    ]);
-    const rawText = result.response.text().trim();
+
+    const response = await groq.chat.completions.create({
+      model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: { url: `data:${mimeType};base64,${base64}` },
+            },
+            { type: 'text', text: PROMPT },
+          ],
+        },
+      ],
+      max_tokens: 4096,
+    });
+
+    const rawText = response.choices[0].message.content.trim();
+
     let parsed;
     try {
       const clean = rawText.replace(/```json|```/g, '').trim();
@@ -91,6 +105,7 @@ router.post('/upload', protect, upload.single('document'), async (req, res) => {
       if (!match) throw new Error('Resposta inválida da IA. Tente novamente.');
       parsed = JSON.parse(match[0]);
     }
+
     res.json({ transactions: parsed.transactions || [], summary: parsed.summary || {} });
   } catch (err) {
     console.error('Erro no import:', err.message);
