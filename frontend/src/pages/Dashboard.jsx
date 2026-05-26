@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { useFinance } from '../../context/FinanceContext';
-import { useTheme } from '../../context/ThemeContext';
-import { formatCurrency, formatMonth } from '../../utils/formatters';
-import EntryModal from '../shared/EntryModal';
+import { useFinance } from '../context/FinanceContext';
+import { useTheme } from '../context/ThemeContext';
+import { formatCurrency, formatMonth } from '../utils/formatters';
+import EntryModal from '../components/shared/EntryModal';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 

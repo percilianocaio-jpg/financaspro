@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useFinance } from '../../context/FinanceContext';
-import { formatCurrency } from '../../utils/formatters';
+import { useFinance } from '../context/FinanceContext';
+import { formatCurrency } from '../utils/formatters';
 
 export default function Insights() {
   const { summary, fetchSummary } = useFinance();

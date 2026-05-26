@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useFinance } from '../../context/FinanceContext';
-import { formatCurrency, formatDate, CAT_COLORS, CAT_ICONS, CATEGORIES } from '../../utils/formatters';
-import EntryModal from '../shared/EntryModal';
+import { useFinance } from '../context/FinanceContext';
+import { formatCurrency, formatDate, CAT_COLORS, CAT_ICONS, CATEGORIES } from '../utils/formatters';
+import EntryModal from '../components/shared/EntryModal';
 
 export default function Transactions() {
   const { transactions, fetchTransactions, deleteTransaction, month, year } = useFinance();

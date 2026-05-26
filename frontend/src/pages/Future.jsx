@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useFinance } from '../../context/FinanceContext';
-import { formatCurrency, formatDate } from '../../utils/formatters';
-import EntryModal from '../shared/EntryModal';
+import { useFinance } from '../context/FinanceContext';
+import { formatCurrency, formatDate } from '../utils/formatters';
+import EntryModal from '../components/shared/EntryModal';
 
 export default function Future() {
   const { future, fetchFuture, realizeFuture, deleteFuture } = useFinance();
